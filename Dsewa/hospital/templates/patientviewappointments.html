@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+      <!-- loading the folder static -->
+    {% load static %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Appointment-view</title>
+    {% include 'links.html' %}
+
+     <link rel = "stylesheet"
+         href = "https://fonts.googleapis.com/icon?family=Material+Icons">
+      <!--<link rel = "stylesheet"
+         href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">-->
+      <script type = "text/javascript"
+         src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>           
+      <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
+      </script>
+</head>
+
+<body>
+  {% include 'navbar.html' %}
+        <div class="page-content-wrapper">
+            <div class="container-fluid">
+                <h2 class="text-center">UPCOMING APPOINTMENTS</h2>
+                <div class="text-center" role="tablist" id="accordion-1">
+                    {% for i in upcomming_appointments %}
+                    <ul class="collapsible popout text-center" data-collapsible="accordion">
+                        <li class="card">
+                            <div class="card-header collapsible-header">
+                                <h5 style="color:blue;"><a><i class="fa fa-calendar-check-o"></i> {{ i.patientname }} appointment with {{ i.doctorname }} on {{i.appointmentdate}}</a></h5>
+                                <div><h5><a>Make payment and secure booking</a></h5></div>
+                                    <div>
+                                        <form action="{%url 'initiate'%}" method="post">
+                                            {%csrf_token %}
+                                            <input type="hidden" name="purchase_order_id" value={{i.appointment_id}}>
+                                            <input type="hidden" name="amount" value="1000" >
+                                            <input type="submit" class="btn btn-light submit-button" value="Pay with Khalti">
+                                            <input type="hidden" name="return_url" value="http://127.0.0.1:8000/verify">
+                                            
+                                        </form>
+                                    </div>
+                            </div>
+                            
+                            <div class="card-body collapsible-body">
+                                <table align="center" class="card-text" style="font-size: 19px;">
+                                    <tr>
+                                        <td>Doctor Name:</td>
+                                        <td>{{i.doctorname}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Patient Name:</td>
+                                        <td>{{i.patientname}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Appointment Date:</td>
+                                        <td>{{i.appointmentdate}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Appointment Time:</td>
+                                        <td>{{i.appointmenttime}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Symptoms:</td>
+                                        <td>{{i.symptoms}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </li>
+                    </ul>
+                    {% endfor %}
+                </div>
+                <h2 class="text-center">PREVIOUS APPOINTMENTS</h2>
+                <div class="text-center" role="tablist" id="accordion-2">
+                   {% for j in previous_appointments %}
+                    <ul class="collapsible popout text-center" data-collapsible="accordion">
+                        <li class="card">
+                            <div class="card-header collapsible-header">
+                                <h5 style="color:blue;"><a><i class="fa fa-calendar-check-o"></i> {{ j.patientname }} appointment with {{ j.doctorname }} on {{j.appointmentdate}}</a></h5>
+                            </div>
+                            <div class="card-body collapsible-body">
+                                <table align="center" class="card-text" style="font-size: 19px;">
+                                    <tr>
+                                        <td>Doctor Name:</td>
+                                        <td>{{j.doctorname}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Patient Name:</td>
+                                        <td>{{j.patientname}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Appointment Date:</td>
+                                        <td>{{j.appointmentdate}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Appointment Time:</td>
+                                        <td>{{j.appointmenttime}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Symptoms:</td>
+                                        <td>{{j.symptoms}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Prescription:</td>
+                                        <td>{{j.prescription}}</td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </li>
+                    </ul>
+                    {% endfor %}
+            </div>
+        </div>
+   {% include 'scripts.html' %}
+</body>
+{% include 'footer.html' %}
+</html>

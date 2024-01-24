@@ -1,0 +1,185 @@
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+      <!-- loading the folder static -->
+    {% load static %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Create Account</title>
+    {% include 'links.html' %}
+    <style>
+        .formerror{
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+   {% include 'navbar.html' %}
+    <div class="row register-form">
+        <div class="col-md-8 offset-md-2">
+            <form class="custom-form" method="post" style="margin-top: 0px;" name='registration-form' onsubmit="return validateForm()">
+                <!-- protection to data after submit -->
+                {% csrf_token %} 
+                <h1>Patient Register Form</h1>
+                <div class="form-row form-group">
+                    <div class="col-sm-4 label-column">
+                        <label class="col-form-label" for="name-input-field"> Full Name </label>
+                    </div>
+                    <div class="col-sm-6 input-column" id='name'>
+                        <input class="form-control" type="text" name="name" required=""><b><span class="formerror"></span></b>
+                    </div>
+                </div>
+                <div class="form-row form-group">
+                    <div class="col-sm-4 label-column">
+                        <label class="col-form-label" for="email-input-field">Email </label>
+                    </div>
+                    <div class="col-sm-6 input-column" id="email">
+                        <input class="form-control" type="" name="email" required=""><b><span class="formerror"></span></b>
+                    </div>
+                </div>
+                <div class="form-row form-group">
+                    <div class="col-sm-4 label-column">
+                        <label class="col-form-label" for="pawssword-input-field">Password </label>
+                    </div>
+                    <div class="col-sm-6 input-column" id="password">
+                        <input class="form-control" type="password" name="password" required=""><b><span class="formerror"></span></b>
+                    </div>
+                </div>
+                <div class="form-row form-group">
+                    <div class="col-sm-4 label-column" id="repeatpassword">
+                        <label class="col-form-label" for="repeat-pawssword-input-field">Repeat Password </label>
+                    </div>
+                    <div class="col-sm-6 input-column">
+                        <input class="form-control" type="password" name="repeatpassword" required=""><b><span class="formerror"></span></b>
+                    </div>
+                </div>
+                <div class="form-row form-group">
+                    <div class="col-sm-4 label-column">
+                        <label class="col-form-label" for="dropdown-input-field">Gender</label>
+                    </div>
+                    <div class="col-sm-6 input-column">
+                        <select class="form-control" name="gender" required="">
+                            <optgroup label="Select Gender">
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row form-group">
+                    <div class="col-sm-4 label-column">
+                        <label class="col-form-label" for="name-input-field">Phone Number</label>
+                    </div>
+                    <div class="col-sm-6 input-column" id="phonenumber">
+                        <input class="form-control" type="tel" name="phonenumber" required=""><b><span class="formerror"></span></b>
+                    </div>
+                </div>
+                <div class="form-row form-group">
+                    <div class="col-sm-4 label-column">
+                        <label class="col-form-label" for="name-input-field">Address</label>
+                    </div>
+                    <div class="col-sm-6 input-column">
+                        <textarea class="form-control" name="address" required=""></textarea>
+                    </div>
+                </div>
+                <div class="form-row form-group">
+                    <div class="col-sm-4 label-column">
+                        <label class="col-form-label" for="name-input-field">Birth Date</label>
+                    </div>
+                    <div class="col-sm-6 input-column">
+                        <input class="form-control" type="date" name="dateofbirth" required="">
+                    </div>
+                </div>
+                <div class="form-row form-group">
+                    <div class="col-sm-4 label-column">
+                        <label class="col-form-label" for="name-input-field">Blood Group</label>
+                    </div>
+                    <div class="col-sm-6 input-column">
+                        <select class="form-control" name="bloodgroup" required="">
+                            <optgroup label="Choose Blood Group">
+                                <option value="O+" selected="">O+</option>
+                                <option value="O-">O-</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn btn-primary submit-button" type="submit">Create Account</button>
+        </form>
+        </div>
+    </div>
+    <!-- 1. Method type should be post
+    2. Every input tag must have a name attribute
+    3. There should a button with submit type
+    4. {% csrf_token %} should be mentioned inside the form tag -->
+{% if error == "no" %}
+<script type="text/javascript">
+    alert('Patient saved Sucessfully..........')
+    window.location = ('{% url 'loginpage' %}')
+</script>
+{% endif %}
+{% if error == "yes" %}
+<script type="text/javascript">
+    alert('something went wrong')
+    window.location = ('{% url 'loginpage' %}')
+</script>
+{% endif %}
+
+</body>
+{% include 'footer.html' %}
+<script>
+function clearError() {
+    error = document.getElementsByClassName('formerror');
+    for(let item of error){
+        item.innerHTML = '';
+    }
+}
+function seterror(id,error) {
+    element = document.getElementById(id);
+    element.getElementsByClassName('formerror')[0].innerHTML = error;
+}
+function validateForm(){
+    var returnval = true;
+    clearError();
+    var name = document.forms['registration-form']['name'].value;
+    if(name.length == 0){
+        seterror("name","*Please Fill name Field");
+        returnval = false;
+    }
+    if(name.length < 5){
+        seterror("name","*Length of name is too short");
+        returnval = false;
+    }
+    var email = document.forms['registration-form']['email'].value;
+    if(email.length > 30){
+        seterror("email","*Email is too long");
+        returnval = false;
+    }
+    var phone = document.forms['registration-form']['phonenumber'].value;
+    var phonePattern = /^\d{10}$/;
+    if (!phonePattern.test(phone)){
+        seterror("phonenumber","*Enter valid 10 digit phone number");
+        returnval = false;
+    }
+    var password = document.forms['registration-form']['password'].value;
+    var repeatpassword = document.forms['registration-form']['repeatpassword'].value;
+    if(password != repeatpassword){
+        seterror("repeatpassword","*Password and repeatpassword must be the same");
+        returnval = false;
+    }
+    
+    
+    return returnval; 
+} 
+
+</script>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+      <!-- loading the folder static -->
+    {% load static %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Dsewa</title>
+    {% include 'links.html' %}
+</head>
+
+<body>
+  {% include 'navbar.html' %}
+        <div class="page-content-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div>
+                            <h1 class="text-center">You are sucessfully logged in..</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% if error == "no" %}
+    <script type="text/javascript">
+        window.location = ('{% url 'home' %}')
+    </script>
+    {% endif %}
+    {% if error == "yes" %}
+    <script type="text/javascript">
+        alert('Invalid Credentials')
+        window.location = ('{% url 'loginpage' %}')
+    </script>
+    {% endif %}
+    {% include 'scripts.html' %}
+</body>
+
+</html>
+{% include 'footer.html' %}

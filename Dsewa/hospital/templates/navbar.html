@@ -1,0 +1,34 @@
+{% load static %}
+<nav class="navbar navbar-dark navbar-expand-md sticky-top bg-primary">
+    <div class="container-fluid"><img src="{% static 'img/mainicon.png' %}" width="30px" height="30px">
+        <a> </a>
+        <a class="navbar-brand text-center" href="#" style="margin: 0px 0px;">D-Sewa</a><button
+            data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle
+                navigation</span><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navcol-1">
+            <ul class="nav navbar-nav text-light ml-auto">
+                <li class="nav-item" role="presentation"><a class="nav-link active" href="{% url 'home' %}">HOME</a></li>
+                {% if group == 'Patient' %}
+                <li class="nav-item" role="presentation"><a class="nav-link active" href="{% url 'makeappointments' %}">MAKE APPOINTMENTS</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link active" href="{% url 'viewappointments' %}">VIEW APPOINTMENT</a></li>
+                {% endif %}
+                {% if request.user.is_authenticated %}
+                <li class="nav-item" role="presentation"><a class="nav-link active" href="{% url 'profile' %}">PROFILE</a></li>
+                <li class="nav-item" role="presentation"><a class="nav-link active" href="{% url 'logout' %}">LOGOUT</a></li>
+                {% endif %}
+                {% if not request.user.is_authenticated %}
+                <li class="nav-item" role="presentation"><a class="nav-link" href="{% url 'loginpage' %}">Login</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" style="" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                     Sign Up
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                      <a class="dropdown-item" href="{% url 'createaccount' %}">Patient</a>
+                      <a class="dropdown-item" href="{% url 'doc-registration' %}">Doctor</a>
+                    </div>
+                  </li>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>

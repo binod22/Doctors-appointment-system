@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+      <!-- loading the folder static -->
+    {% load static %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Create Account</title>
+    {% include 'links.html' %}
+    <style>
+        .formerror{
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+   {% include 'navbar.html' %}
+    <div class="row register-form">
+        <div class="col-md-8 offset-md-2">
+            <form class="custom-form" method="post" style="margin-top: 0px;" name="registration-form" enctype="multipart/form-data" onsubmit="return validateForm()">
+                <!-- protection to data after submit -->
+                {% csrf_token %} 
+                <h1>Register Form</h1>
+                <div class="form-row form-group">
+                    <div class="col-sm-4 label-column">
+                        <label class="col-form-label" for="name-input-field"> First Name </label>
+                    </div>
+                    <div class="col-sm-6 input-column" id="name">
+                        <input class="form-control" type="text" name="name" required=""><b><span class="formerror"></span></b>
+                    </div>
+                </div>
+                <div class="form-row form-group">
+                    <div class="col-sm-4 label-column">
+                        <label class="col-form-label" for="email-input-field">Email </label>
+                    </div>
+                    <div class="col-sm-6 input-column" id = "email">
+                        <input class="form-control" type="" name="email" required=""><b><span class="formerror"></span></b>
+                    </div>
+                </div>
+                <div class="form-row form-group">
+                    <div class="col-sm-4 label-column">
+                        <label class="col-form-label" for="pawssword-input-field">Password </label>
+                    </div>
+                    <div class="col-sm-6 input-column" id="password">
+                        <input class="form-control" type="password" name="password" required=""><b><span class="formerror"></span></b>
+                    </div>
+                </div>
+                <div class="form-row form-group">
+                    <div class="col-sm-4 label-column">
+                        <label class="col-form-label" for="repeat-pawssword-input-field">Repeat Password </label>
+                    </div>
+                    <div class="col-sm-6 input-column" id="repeatpassword">
+                        <input class="form-control" type="password" name="repeatpassword" required=""><b><span class="formerror"></span></b>
+                    </div>
+                </div>
+                <div class="form-row form-group">
+                    <div class="col-sm-4 label-column">
+                        <label class="col-form-label" for="dropdown-input-field">Gender</label>
+                    </div>
+                    <div class="col-sm-6 input-column"id="gender">
+                        <select class="form-control" name="gender" required=""><b><span class="formerror"></span></b>
+                            <optgroup label="Select Gender">
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </optgroup>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row form-group">
+                    <div class="col-sm-4 label-column">
+                        <label class="col-form-label" for="name-input-field">Phone Number</label>
+                    </div>
+                    <div class="col-sm-6 input-column" id="phonenumber">
+                        <input class="form-control" type="phone2numeric" name="phonenumber" required=""><b><span class="formerror"></span></b>
+                    </div>
+                </div>
+                <div class="form-row form-group">
+                    <div class="col-sm-4 label-column">
+                        <label class="col-form-label" for="name-input-field">Address</label>
+                    </div>
+                    <div class="col-sm-6 input-column"id="address">
+                        <textarea class="form-control" name="address" required=""></textarea>
+                    </div>
+                </div>
+                <div class="form-row form-group">
+                    <div class="col-sm-4 label-column">
+                        <label class="col-form-label" for="name-input-field">Birth Date</label>
+                    </div>
+                    <div class="col-sm-6 input-column" id="dateofbirth">
+                        <input class="form-control" type="date" name="dateofbirth" required=""><b><span class="formerror"></span></b>
+                    </div>
+                </div>
+                <div class="form-row form-group">
+                    <div class="col-sm-4 label-column">
+                        <label class="col-form-label" for="name-input-field">NMC Number</label>
+                    </div>
+                    <div class="col-sm-6 input-column" id="nmcnumber">
+                      <input class="form-control" type="" name="nmcnumber" required=""><b><span class="formerror"></span></b>
+                  </div>
+                </div>
+                <div class="form-row form-group">
+                  <div class="col-sm-4 label-column">
+                      <label class="col-form-label" for="dropdown-input-field">Qualification</label>
+                  </div>
+                  <div class="col-sm-6 input-column"id="qualification">
+                      <select class="form-control" name="qualification" required=""><b><span class="formerror"></span></b>
+                          <optgroup label="Select Qualification">
+                              <option value="MBBS">MBBS</option>
+                              <option value="MD">MD</option>
+                              <option value="PhD">PhD</option>
+                          </optgroup>
+                      </select>
+                  </div>
+              </div>
+              <div class="form-row form-group">
+                <div class="col-sm-4 label-column">
+                    <label class="col-form-label" for="dropdown-input-field">Field of Specialization</label>
+                </div>
+                <div class="col-sm-6 input-column">
+                    <select class="form-control" name="specialization" required=""><b><span class="formerror"></span></b>
+                        <optgroup label="Select Field">
+                            <option value="Cardiology">Cardiology</option>
+                            <option value="Dermatology">Dermatology</option>
+                            <option value="Emergency Medicine">Emergency Medicine</option>
+                            <option value="Endocrinology">Endocrinology</option>
+                            <option value="General Surgery">General Surgery</option>
+                            <option value="Neurology">Neurology</option>
+                            <option value="Nephrology">Nephrology</option>
+                            <option value="Obstetrics and Gynecology">Obstetrics and Gynecology</option>
+                            <option value="Ophthalmology">Ophthalmology</option>
+                            <option value="Orthopedic Surgery">Orthopedic Surgery</option>
+                            <option value="Pediatrics">Pediatrics</option>
+                            <option value="Psychiatry">Psychiatry </option>
+                            <option value="Radiology">Radiology</option>
+                            <option value="Urology"> Urology </option>
+                           
+
+
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+                <div class="form-row form-group">
+                    <div class="col-sm-4 label-column">
+                        <label class="col-form-label" for="name-input-field">Photo</label>
+                    </div>
+                    <div class="col-sm-4 custom-file">
+                      <input type="file" class="custom-file-input" name="doc_image" id="customFile"><b><span class="formerror"></span></b>
+                      <label class="custom-file-label" for="customFile">Upload file</label>
+                    </div>
+                </div>
+                <div class="form-row form-group">
+                  <div class="col-sm-4 label-column">
+                      <label class="col-form-label" for="name-input-field">Upload License Photo</label>
+                  </div>
+                  <div class="col-sm-4 custom-file">
+                    <input type="file" class="custom-file-input" name ="license_image" id="customFile"><b><span class="formerror"></span></b>
+                    <label class="custom-file-label" for="customFile">Upload file</label>
+                  </div>
+              </div>
+                
+                <button class="btn btn-primary submit-button" type="submit">Create Account</button>
+        </form>
+        </div>
+    </div>
+    <!-- 1. Method type should be post
+    2. Every input tag must have a name attribute
+    3. There should a button with submit type
+    4. {% csrf_token %} should be mentioned inside the form tag -->
+{% if error == "no" %}
+<script type="text/javascript">
+    alert('Doctor Register Sucessfully..........')
+    window.location = ('{% url 'loginpage' %}')
+</script>
+{% endif %}
+{% if error == "yes" %}
+<script type="text/javascript">
+    alert('something went wrong')
+    window.location = ('{% url 'loginpage' %}')
+</script>
+<script>
+  // Add the following code if you want the name of the file appear on select
+  $(".custom-file-input").on("change", function() {
+    var fileName = $(this).val().split("\\").pop();
+    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+  });
+  </script>
+{% endif %}
+
+</body>
+{% include 'footer.html' %}
+<script>
+    function clearError() {
+        error = document.getElementsByClassName('formerror');
+        for(let item of error){
+            item.innerHTML = '';
+        }
+    }
+    function seterror(id,error) {
+        element = document.getElementById(id);
+        element.getElementsByClassName('formerror')[0].innerHTML = error;
+    }
+    function validateForm(){
+        var returnval = true;
+        clearError();
+        var name = document.forms['registration-form']['name'].value;
+        if(name.length == 0){
+            seterror("name","*Please Fill name Field");
+            returnval = false;
+        }
+        if(name.length < 5){
+            seterror("name","*Length of name is too short");
+            returnval = false;
+        }
+        var email = document.forms['registration-form']['email'].value;
+        var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if(!emailPattern.test(email)){
+            seterror("email","*Enter a valid Email");
+            returnval = false;
+        }
+        var phone = document.forms['registration-form']['phonenumber'].value;
+        var phonePattern = /^\d{10}$/;
+        if (!phonePattern.test(phone)){
+            seterror("phonenumber","*Enter valid 10 digit phone number");
+            returnval = false;
+        }
+        var nmc = document.forms['registration-form']['nmcnumber'].value;
+        var nmcPattern = /^\d{6}$/;
+        if (nmcPattern.test(phone)){
+            seterror("nmcnumber","*Enter valid 6 digit  NMC number");
+            returnval = false;
+        }
+        var password = document.forms['registration-form']['password'].value;
+        var repeatpassword = document.forms['registration-form']['repeatpassword'].value;
+        if(password != repeatpassword){
+            seterror("repeatpassword","*Password and repeatpassword must be the same");
+            returnval = false;
+        }
+        
+        
+        return returnval; 
+    } 
+    
+    </script>
+</html>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Doctor Directory</title>
+  <style>
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-gap: 20px;
+      padding: 20px;
+    }
+    
+    .doctor-card {
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      text-align: center;
+    }
+    
+    .doctor-name {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    
+    .doctor-specialty {
+      color: #888;
+    }
+    
+    .doctor-photo {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="grid-container" id="doctors-grid"></div>
+
+  <script>
+    // Sample array of doctors
+    var doctors = [
+      { name: "Dr. John Doe", specialty: "Cardiology", photo: "doctor1.jpg" },
+      { name: "Dr. Jane Smith", specialty: "Dermatology", photo: "doctor2.jpg" },
+      { name: "Dr. David Johnson", specialty: "Neurology", photo: "doctor3.jpg" },
+      { name: "Dr. Sarah Lee", specialty: "Pediatrics", photo: "doctor4.jpg" },
+      { name: "Dr. Michael Brown", specialty: "Orthopedics", photo: "doctor5.jpg" },
+      { name: "Dr. Emily Davis", specialty: "Psychiatry", photo: "doctor6.jpg" }
+    ];
+
+    // Function to create doctor cards
+    function createDoctorCard(doctor) {
+      var card = document.createElement("div");
+      card.className = "doctor-card";
+      
+      var photo = document.createElement("img");
+      photo.className = "doctor-photo";
+      photo.src = doctor.photo;
+      photo.alt = doctor.name;
+      card.appendChild(photo);
+      
+      var name = document.createElement("div");
+      name.className = "doctor-name";
+      name.textContent = doctor.name;
+      card.appendChild(name);
+      
+      var specialty = document.createElement("div");
+      specialty.className = "doctor-specialty";
+      specialty.textContent = doctor.specialty;
+      card.appendChild(specialty);
+      
+      return card;
+    }
+
+    // Populate doctors grid
+    var doctorsGrid = document.getElementById("doctors-grid");
+    doctors.forEach(function(doctor) {
+      var doctorCard = createDoctorCard(doctor);
+      doctorsGrid.appendChild(doctorCard);
+    });
+  </script>
+</body>
+</html>
